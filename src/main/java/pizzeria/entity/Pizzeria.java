@@ -42,7 +42,6 @@ public class Pizzeria {
         this.differentPizzaAmount = 10;
     }
 
-
     public static Pizzeria getInstance() {
         if (instance == null) {
             instance = new Pizzeria();
