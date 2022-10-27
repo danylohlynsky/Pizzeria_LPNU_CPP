@@ -12,7 +12,6 @@ public class Order {
 
     Customer customer;
 
-
     public Order(List<Pizza> pizzas) {
         this.pizzas = pizzas;
     }
