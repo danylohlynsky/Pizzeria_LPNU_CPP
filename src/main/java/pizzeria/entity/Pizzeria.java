@@ -42,43 +42,12 @@ public class Pizzeria {
         this.differentPizzaAmount = 10;
     }
 
-    // should be changed
+
     public static Pizzeria getInstance() {
         if (instance == null) {
             instance = new Pizzeria();
         }
         return instance;
     }
-
-    // private Pizzeria(List<Cook> cooks,List<Cashier> cashiers,
-    // List<Table> tables, List<Customer> customers,
-    // List<Order> queue, List<PizzaSettings> menu,
-    // boolean isOpen, CookVersion cookVersion,
-    // int minSecondsForPizza, int differentPizzaAmount) {
-    // this.cooks = cooks;
-    // this.cashiers = cashiers;
-    // this.tables = tables;
-    // this.customers = customers;
-    // this.queue = queue;
-    // this.menu = menu;
-    // this.isOpen = isOpen;
-    // this.cookVersion = cookVersion;
-    // this.minSecondsForPizza = minSecondsForPizza;
-    // this.differentPizzaAmount = differentPizzaAmount;
-    // }
-    //
-    //
-    //
-    // public static Pizzeria getInstance(List<Cook> cooks, List<Cashier> cashiers, List<Table> tables,
-    // List<Customer> customers, List<Order> queue,
-    // List<PizzaSettings> menu, boolean isOpen,
-    // CookVersion cookVersion, int minSecondsForPizza,
-    // int differentPizzaAmount) {
-    // if (instance == null) {
-    // instance = new Pizzeria(cooks,cashiers, tables, customers, queue, menu,
-    // isOpen, cookVersion, minSecondsForPizza, differentPizzaAmount);
-    // }
-    // return instance;
-    // }
 
 }
