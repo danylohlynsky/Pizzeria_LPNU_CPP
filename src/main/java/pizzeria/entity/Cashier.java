@@ -36,12 +36,11 @@ public class Cashier extends Thread {
         run();
     }
 
-
-    public int getCustomersAmount(){
+    public int getCustomersAmount() {
         return customers.size();
     }
 
-    public void addCustomer(Customer customer){
+    public void addCustomer(Customer customer) {
         customers.add(customer);
     }
 }
