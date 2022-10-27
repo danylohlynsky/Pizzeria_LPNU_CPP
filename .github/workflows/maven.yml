@@ -6,20 +6,19 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: CI Pizzeria
 
 on:
+  push: 
   pull_request:
     branches: [ "main" ]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-    - name: Set up JDK 11
+    - name: Set up JDK 18
       uses: actions/setup-java@v3
       with:
         java-version: '18'
@@ -27,7 +26,5 @@ jobs:
         cache: maven
     - name: Maven Format Check
       run: mvn formatter:format
-
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
+    - name: Maven Checkstyle Check
+      run: mvn formatter:format
