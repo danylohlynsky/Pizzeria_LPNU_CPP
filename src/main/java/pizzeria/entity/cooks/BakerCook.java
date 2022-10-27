@@ -1,28 +1,43 @@
 package pizzeria.entity.cooks;
 
-import java.util.TimerTask;
+import pizzeria.entity.Order;
+
+import java.util.List;
+import java.util.Random;
 
 public class BakerCook extends Cook {
     @Override
     public void takeBreak() {
+        boolean haveBreak = new Random().nextInt(1, 10) == 5 ? true : false;
 
+        if (haveBreak) {
+            try {
+                state = CookState.OUT;
+                Thread.sleep(1000); // 1000 это 1 секунда
+                state = CookState.AVAILABLE;
+
+            } catch (Exception ex) {
+            }
+
+        }
     }
 
     @Override
     public void takeTask() {
-        state = CookState.valueOf("BUSY");
-        System.out.println("Baker take task");
+        List<Order> listOrders = pizzeria.getQueue();
+        if (listOrders.size() > 0)
+            pizzas = listOrders.get(0).getPizzas();
 
-        timer.schedule(finish, 3 * time * 100);
+        // приготування pizzas
 
+        finishTask();
     }
 
     @Override
-    public TimerTask finishTask() {
-        pizzeria.getQueue().remove(pizzas);
-        state = CookState.valueOf("AVAILABLE");
+    public void finishTask() {
+        // завершення
+        pizzeria.getQueue().remove(pizzas); //видалення з черги виконане замовлення
 
-        System.out.println("Pizza is already done!!!");
-        return null;
+        takeBreak(); // запит на перерву
     }
 }

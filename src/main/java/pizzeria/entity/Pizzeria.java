@@ -1,9 +1,9 @@
 package pizzeria.entity;
 
-import pizzeria.entity.cooks.Cook;
-import pizzeria.entity.cooks.CookVersion;
 import lombok.Getter;
 import lombok.Setter;
+import pizzeria.entity.cooks.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
