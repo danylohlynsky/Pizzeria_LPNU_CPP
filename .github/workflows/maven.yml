@@ -26,5 +26,3 @@ jobs:
         cache: maven
     - name: Maven Format Check
       run: mvn formatter:format
-    - name: Maven Checkstyle Check
-      run: mvn formatter:format
