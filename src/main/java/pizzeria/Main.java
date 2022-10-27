@@ -1,7 +1,7 @@
 package pizzeria;
 
 import pizzeria.entity.*;
-import pizzeria.entity.cooks.*;
+import pizzeria.entity.cooks.DoughCook;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
         // should be changed with creating Pizzeria settings functionality
-        int cashiersAmount = 15;
+        int cashiersAmount = 2;
 
         List<Cashier> cashiers = new ArrayList<>();
         for (int i = 0; i < cashiersAmount; i++) {
@@ -25,6 +25,6 @@ public class Main {
             cashiers.add(new Cashier(customers));
         }
         cashiers.forEach(Cashier::start);
-
+        new DoughCook().takeTask();
     }
 }
