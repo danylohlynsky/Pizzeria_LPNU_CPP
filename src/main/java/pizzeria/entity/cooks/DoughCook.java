@@ -1,9 +1,7 @@
 package pizzeria.entity.cooks;
 
 import pizzeria.entity.Order;
-
 import java.util.List;
-import java.util.Random;
 
 public class DoughCook extends Cook {
 
@@ -11,17 +9,19 @@ public class DoughCook extends Cook {
     public void takeTask() {
         List<Order> listOrders = pizzeria.getQueue();
         if (listOrders.size() > 0)
-            pizzas = listOrders.get(0).getPizzas(); // бере замовлення з черги
+            pizzas = listOrders.get(0).getPizzas();
+        state = CookState.valueOf("BUSY");
+        System.out.println("DoughCook take task");
 
-        // приготування pizzas
+        timer.schedule(finish, 3L * time * 100);
 
-        finishTask();
     }
 
     @Override
     public void finishTask() {
-        // передати іншому таску
-
+        state = CookState.valueOf("AVAILABLE");
+        System.out.println("DoughCook has done");
+        new ToppingCook().takeTask();
         takeBreak();
     }
 }

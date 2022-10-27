@@ -1,23 +1,22 @@
 package pizzeria.entity.cooks;
 
-import pizzeria.entity.Pizza;
-
-import java.util.List;
-import java.util.Random;
-
 public class ToppingCook extends Cook {
 
     @Override
     public void takeTask() {
-        // приготування pizzas
 
-        finishTask();
+        state = CookState.valueOf("BUSY");
+        System.out.println("ToppingCook take task");
+
+        timer.schedule(finish, 4L * time * 100);
+
     }
 
     @Override
     public void finishTask() {
-        // передати іншому таску
-
+        state = CookState.valueOf("AVAILABLE");
+        System.out.println("ToppingCook done task");
         takeBreak();
+        new BakerCook().takeTask();
     }
 }

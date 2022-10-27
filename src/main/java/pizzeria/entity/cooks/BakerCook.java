@@ -1,28 +1,23 @@
 package pizzeria.entity.cooks;
 
 import pizzeria.entity.Order;
-
 import java.util.List;
-import java.util.Random;
 
 public class BakerCook extends Cook {
 
     @Override
     public void takeTask() {
-        List<Order> listOrders = pizzeria.getQueue();
-        if (listOrders.size() > 0)
-            pizzas = listOrders.get(0).getPizzas();
+        state = CookState.valueOf("BUSY");
+        System.out.println("Baker take task");
 
-        // приготування pizzas
+        timer.schedule(finish, 3 * time * 100);
 
-        finishTask();
     }
 
     @Override
     public void finishTask() {
-        // завершення
-        pizzeria.getQueue().remove(pizzas); // видалення з черги виконане замовлення
-
-        takeBreak(); // запит на перерву
+        pizzeria.getQueue().remove(pizzas);
+        state = CookState.valueOf("AVAILABLE");
+        System.out.println("Pizza is already done!!!");
     }
 }

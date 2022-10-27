@@ -1,12 +1,7 @@
 package pizzeria.entity.cooks;
 
-import pizzeria.entity.*;
-
+import pizzeria.entity.Order;
 import java.util.List;
-import java.util.Random;
-import java.time.Instant;
-
-import java.util.TimerTask;
 
 public class FullStackCook extends Cook {
 
@@ -15,17 +10,20 @@ public class FullStackCook extends Cook {
         List<Order> listOrders = pizzeria.getQueue();
         if (listOrders.size() > 0)
             pizzas = listOrders.get(0).getPizzas();
+        state = CookState.valueOf("BUSY");
 
-        // приготування pizzas
+        System.out.println("FullStackCook take task");
 
-        finishTask();
+        timer.schedule(finish, time * 1000);
+
     }
 
     @Override
     public void finishTask() {
-        // завершення замовлення
-        pizzeria.getQueue().remove(pizzas); // видалення з черги виконане замовлення
+        pizzeria.getQueue().remove(pizzas);
+        state = CookState.valueOf("AVAILABLE");
 
-        takeBreak(); // запит на перерву
+        System.out.println("Pizza is already done, by FullStack!!!");
+        takeBreak();
     }
 }
