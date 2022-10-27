@@ -25,6 +25,4 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Maven Format Check
-      run: mvn formatter:format
-    - name: Maven Checkstyle Check
-      run: mvn formatter:format
+      run: mvn formatter:validate

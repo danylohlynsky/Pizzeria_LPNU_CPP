@@ -15,11 +15,10 @@ public class PizzeriaManager {
         }
     }
 
-
     private Order generateOrder() {
         int pizzasAmount = new Random().nextInt(1, 5);
         List<Pizza> pizzas = new ArrayList<>();
-        for(int i = 0; i < pizzasAmount; i++) {
+        for (int i = 0; i < pizzasAmount; i++) {
             pizzas.add(new Pizza(pizzeria.getMenu().get(new Random().nextInt(pizzeria.getMenu().size()))));
         }
         return new Order(pizzas);
