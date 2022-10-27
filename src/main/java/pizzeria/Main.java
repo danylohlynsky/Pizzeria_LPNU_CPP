@@ -1,7 +1,7 @@
 package pizzeria;
 
 import pizzeria.entity.*;
-
+import pizzeria.entity.cooks.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,5 +25,6 @@ public class Main {
             cashiers.add(new Cashier(customers));
         }
         cashiers.forEach(Cashier::start);
+
     }
 }
