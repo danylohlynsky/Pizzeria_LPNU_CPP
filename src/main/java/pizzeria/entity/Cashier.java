@@ -9,7 +9,7 @@ public class Cashier extends Thread {
     private List<Customer> customers;
 
     // should be singleton
-    private final static Pizzeria pizzeria = new Pizzeria();
+    private final static Pizzeria pizzeria = Pizzeria.getInstance();
 
     public void nextCustomer(Customer customer) throws InterruptedException {
         synchronized (pizzeria) {
@@ -34,5 +34,13 @@ public class Cashier extends Thread {
             throw new RuntimeException(e);
         }
         run();
+    }
+
+    public int getCustomersAmount() {
+        return customers.size();
+    }
+
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
     }
 }
