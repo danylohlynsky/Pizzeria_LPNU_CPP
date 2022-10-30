@@ -1,29 +1,27 @@
 package pizzeria.entity.cooks;
 
-import pizzeria.entity.Order;
-import java.util.List;
-
 public class FullStackCook extends Cook {
-
     @Override
     public void takeTask() {
-        List<Order> listOrders = pizzeria.getQueue();
-        if (listOrders.size() > 0)
-            pizzas = listOrders.get(0).getPizzas();
-        state = CookState.valueOf("BUSY");
+        pizza = pizzeria.getDoughQueue().getPizzaAndRemoveFromQueue();
 
-        System.out.println("FullStackCook take task");
-
-        timer.schedule(finish, time * 1000);
-
+        if (pizza != null) {
+            state = CookState.BUSY;
+            System.out.println(
+                    Thread.currentThread().getId() + " Fullstack take task | " + pizza.getPizzaSettings().getTitle());
+            timer.schedule(getTimerTask(), pizza.getPizzaSettings().getTimeInMillisForFullstack());
+        } else {
+            takeTask();
+        }
     }
 
     @Override
     public void finishTask() {
-        pizzeria.getQueue().remove(pizzas);
-        state = CookState.valueOf("AVAILABLE");
-
-        System.out.println("Pizza is already done, by FullStack!!!");
+        pizza.pizzaReady();
+        state = CookState.AVAILABLE;
+        System.out.println(
+                Thread.currentThread().getId() + " Fullstack has done | " + pizza.getPizzaSettings().getTitle());
         takeBreak();
+        takeTask();
     }
 }

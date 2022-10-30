@@ -1,12 +1,22 @@
 package pizzeria;
 
 import pizzeria.entity.*;
+import pizzeria.entity.cooks.BakerCook;
 import pizzeria.entity.cooks.DoughCook;
+import pizzeria.entity.cooks.ToppingCook;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        Pizzeria pizzeria = Pizzeria.getInstance();
+        pizzeria.getCooks().add(new BakerCook());
+        pizzeria.getCooks().add(new BakerCook());
+        pizzeria.getCooks().add(new ToppingCook());
+        pizzeria.getCooks().add(new ToppingCook());
+        pizzeria.getCooks().add(new DoughCook());
+        pizzeria.getCooks().add(new DoughCook());
 
         // should be changed with creating Pizzeria settings functionality
         int cashiersAmount = 2;
@@ -25,6 +35,5 @@ public class Main {
             cashiers.add(new Cashier(customers));
         }
         cashiers.forEach(Cashier::start);
-        new DoughCook().takeTask();
     }
 }

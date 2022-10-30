@@ -1,27 +1,31 @@
 package pizzeria.entity.cooks;
 
-import pizzeria.entity.Order;
-import java.util.List;
-
 public class DoughCook extends Cook {
+    public DoughCook() {
+        super();
+    }
 
     @Override
     public void takeTask() {
-        List<Order> listOrders = pizzeria.getQueue();
-        if (listOrders.size() > 0)
-            pizzas = listOrders.get(0).getPizzas();
-        state = CookState.valueOf("BUSY");
-        System.out.println("DoughCook take task");
+        pizza = pizzeria.getDoughQueue().getPizzaAndRemoveFromQueue();
 
-        timer.schedule(finish, 3L * time * 100);
-
+        if (pizza != null) {
+            state = CookState.BUSY;
+            System.out.println(
+                    Thread.currentThread().getId() + " DoughCook take task | " + pizza.getPizzaSettings().getTitle());
+            timer.schedule(getTimerTask(), pizza.getPizzaSettings().getTimeInMillisForDough());
+        } else {
+            takeTask();
+        }
     }
 
     @Override
     public void finishTask() {
-        state = CookState.valueOf("AVAILABLE");
-        System.out.println("DoughCook has done");
-        new ToppingCook().takeTask();
+        pizzeria.getToppingQueue().addPizzaToQueue(pizza);
+        state = CookState.AVAILABLE;
+        System.out.println(
+                Thread.currentThread().getId() + " DoughCook has done | " + pizza.getPizzaSettings().getTitle());
         takeBreak();
+        takeTask();
     }
 }

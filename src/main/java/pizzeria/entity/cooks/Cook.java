@@ -1,44 +1,56 @@
 package pizzeria.entity.cooks;
 
-import pizzeria.entity.*;
+import pizzeria.entity.Pizza;
+import pizzeria.entity.Pizzeria;
 
-import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Random;
 
-public abstract class Cook {
-
+public abstract class Cook extends Thread {
     protected static Pizzeria pizzeria = Pizzeria.getInstance();
-    List<Pizza> pizzas; // pizzas - піци в одному замовленні
     protected CookState state;
-
+    protected Pizza pizza;
     // protected int time = pizzeria.getMinSecondsForPizza();
     protected Timer timer = new Timer();
-    protected TimerTask finish = new TimerTask() {
-        @Override
-        public void run() {
-            finishTask();
-        }
-    };
     protected int time = 3; // час для відлагодження програми
 
-    public void takeBreak() {
-        boolean haveBreak = new Random().nextInt(1, 10) == 5 ? true : false;
+    protected void takeBreak() {
+        boolean haveBreak = new Random().nextInt(1, 10) == 5;
 
         if (haveBreak) {
             try {
+                System.out.println(Thread.currentThread().getId() + " take brake");
                 state = CookState.OUT;
-                Thread.sleep(1000); // 1000 это 1 секунда
+                Thread.sleep(1000); // 1000 это 1 секунда (hate russians)
                 state = CookState.AVAILABLE;
-
+                System.out.println(Thread.currentThread().getId() + " finish brake");
             } catch (Exception ex) {
+                ex.printStackTrace();
             }
 
         }
     }
 
-    public abstract void takeTask();
+    protected abstract void takeTask();
 
-    public abstract void finishTask();
+    protected abstract void finishTask();
+
+    public TimerTask getTimerTask() {
+        return new TimerTask() {
+            @Override
+            public void run() {
+                finishTask();
+            }
+        };
+    }
+
+    @Override
+    public void run() {
+        takeTask();
+    }
+
+    public Cook() {
+        start();
+    }
 }

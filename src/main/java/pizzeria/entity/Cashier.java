@@ -14,6 +14,8 @@ public class Cashier extends Thread {
     public void nextCustomer(Customer customer) throws InterruptedException {
         synchronized (pizzeria) {
             pizzeria.getQueue().add(customer.getOrder());
+            // fixme: may be should be changed (add all pizzas to dough queue), but may be it's fine =)
+            customer.getOrder().getPizzas().forEach(pizzeria.getDoughQueue()::addPizzaToQueue);
             System.out.println(pizzeria.getQueue().size() + " orders in the queue");
         }
         customers.remove(customer);
