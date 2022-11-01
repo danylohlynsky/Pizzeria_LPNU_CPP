@@ -65,14 +65,14 @@ public class Main {
                     cooks.add(new BakerCook());
                 }
 
-//                System.out.println(bakerCookAmount);
+                // System.out.println(bakerCookAmount);
 
                 int doughCookAmount = rand.nextInt(1, cooksAmount - bakerCookAmount);
                 for (int i = 0; i < cooksAmount; i++) {
                     cooks.add(new DoughCook());
                 }
 
-//                System.out.println(doughCookAmount);
+                // System.out.println(doughCookAmount);
 
                 int toppingCookAmount = cooksAmount - bakerCookAmount - doughCookAmount;
                 List<Cook> toppingCooks = new ArrayList<>();
@@ -80,7 +80,7 @@ public class Main {
                     cooks.add(new ToppingCook());
                 }
 
-//                System.out.println(toppingCookAmount);
+                // System.out.println(toppingCookAmount);
 
                 pizzeria.setCooks(cooks);
             }
@@ -107,28 +107,28 @@ public class Main {
 
         pizzeriaManager.generateClient();
 
-//        List<Cook> cooks = new ArrayList<>();
-//        for (int i = 0; i < cooksAmount; i++) {
-//            cooks.add();
-//        }
+        // List<Cook> cooks = new ArrayList<>();
+        // for (int i = 0; i < cooksAmount; i++) {
+        // cooks.add();
+        // }
 
-//        // should be changed with creating Pizzeria settings functionality
-//        int cashiersAmount = 2;
-//
-//        List<Cashier> cashiers = new ArrayList<>();
-//        for (int i = 0; i < cashiersAmount; i++) {
-//
-//            // test objects
-//            List<Customer> customers = new ArrayList<>(List.of(
-//                    new Customer(new Table(true),
-//                            new Order(List.of(new Pizza(new PizzaSettings("First settings", 10)),
-//                                    new Pizza(new PizzaSettings("Second settings", 5))))),
-//                    new Customer(new Table(true), new Order(List.of(new Pizza(new PizzaSettings("First settings", 10)),
-//                            new Pizza(new PizzaSettings("Second settings", 5)))))));
-//
-//            cashiers.add(new Cashier(customers));
-//        }
-//        cashiers.forEach(Cashier::start);
-//        new DoughCook().takeTask();
+        // // should be changed with creating Pizzeria settings functionality
+        // int cashiersAmount = 2;
+        //
+        // List<Cashier> cashiers = new ArrayList<>();
+        // for (int i = 0; i < cashiersAmount; i++) {
+        //
+        // // test objects
+        // List<Customer> customers = new ArrayList<>(List.of(
+        // new Customer(new Table(true),
+        // new Order(List.of(new Pizza(new PizzaSettings("First settings", 10)),
+        // new Pizza(new PizzaSettings("Second settings", 5))))),
+        // new Customer(new Table(true), new Order(List.of(new Pizza(new PizzaSettings("First settings", 10)),
+        // new Pizza(new PizzaSettings("Second settings", 5)))))));
+        //
+        // cashiers.add(new Cashier(customers));
+        // }
+        // cashiers.forEach(Cashier::start);
+        // new DoughCook().takeTask();
     }
 }
