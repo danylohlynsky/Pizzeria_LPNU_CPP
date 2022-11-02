@@ -16,4 +16,14 @@ public class Customer {
         var cashier = allCashiers.stream().min(Comparator.comparing(Cashier::getCustomersAmount)).orElseThrow();
         cashier.addCustomer(this);
     }
+
+    public void eat() {
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        table.setAvailable(Boolean.TRUE);
+    }
 }

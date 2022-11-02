@@ -1,12 +1,14 @@
 package pizzeria.entity;
 
-import lombok.AllArgsConstructor;
-
+import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 public class Cashier extends Thread {
-    private List<Customer> customers;
+    private final List<Customer> customers;
+
+    public Cashier() {
+        this.customers = new ArrayList<>();
+    }
 
     // should be singleton
     private final static Pizzeria pizzeria = Pizzeria.getInstance();

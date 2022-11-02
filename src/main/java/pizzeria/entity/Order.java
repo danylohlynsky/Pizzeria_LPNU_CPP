@@ -21,6 +21,7 @@ public class Order {
         new Thread(() -> {
             try {
                 countDownLatch.await();
+                customer.eat();
                 System.out.println("------- Order fulfilled -------");
             } catch (InterruptedException e) {
                 e.printStackTrace();
