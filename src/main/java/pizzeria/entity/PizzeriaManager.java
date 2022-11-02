@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class PizzeriaManager {
-    private Pizzeria pizzeria;
+    private Pizzeria pizzeria = Pizzeria.getInstance();
 
     public void generateClient() {
         if (pizzeria.isOpen() && pizzeria.getTables().stream().anyMatch(Table::isAvailable)) {
