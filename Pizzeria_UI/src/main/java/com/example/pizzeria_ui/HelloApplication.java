@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pizzeria.entity.Pizzeria;
 
-
 import java.io.IOException;
 
 public class HelloApplication extends Application {
