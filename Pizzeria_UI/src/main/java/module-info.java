@@ -1,4 +1,4 @@
-module com.example.pizzeria_ui {
+module Pizzeria_UI {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -6,9 +6,9 @@ module com.example.pizzeria_ui {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
-    requires Pizzeria;
+    requires Pizzeria_BackEnd;
 
-    opens com.example.pizzeria_ui to javafx.fxml;
-    exports com.example.pizzeria_ui;
+    opens pizzeria_ui to javafx.fxml;
 
+    exports pizzeria_ui;
 }
