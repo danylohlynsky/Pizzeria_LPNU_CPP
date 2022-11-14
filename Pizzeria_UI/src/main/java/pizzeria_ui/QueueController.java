@@ -1,6 +1,5 @@
 package pizzeria_ui;
 
-import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -11,16 +10,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QueueController {
-    @FXML
-    private GridPane queueGrid;
+    private final GridPane queueGrid;
     private Image clientImage;
     private Image emptyClientImage;
     private Image cashierImage;
     private Image emptyCashierImage;
-    List<List<ImageView>> queues;
+    private List<List<ImageView>> queues;
 
-    @FXML
-    public void initialize() {
+    public QueueController(GridPane queueGrid) {
+        this.queueGrid = queueGrid;
+        init();
+    }
+
+    private void init() {
         clientImage = new Image("client.png");
         emptyClientImage = new Image("empty_client.png");
         cashierImage = new Image("cashier.png");
@@ -51,28 +53,11 @@ public class QueueController {
         for (int i = 0; i < queueGrid.getRowCount(); i++) {
             queueGrid.getRowConstraints().get(i).setPercentHeight(tileSize);
         }
-
-        Pizzeria pizzeria = Pizzeria.getInstance();
-        Pizzeria.getInstance().start(2, 3, 14, 3, 0, 3);
-
-        new Thread(() -> {
-            while (true) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                draw(pizzeria.getCashiers());
-            }
-        }).start();
     }
 
     public void update() {
-        draw(Pizzeria.getInstance().getCashiers());
-    }
+        List<Cashier> cashiers = Pizzeria.getInstance().getCashiers();
 
-    private void draw(List<Cashier> cashiers) {
         for (int i = 0; i < queues.size(); i++) {
             List<ImageView> queue = queues.get(i);
             int customersInQueue = 0;
