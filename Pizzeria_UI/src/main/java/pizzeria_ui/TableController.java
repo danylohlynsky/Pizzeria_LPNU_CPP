@@ -1,6 +1,5 @@
 package pizzeria_ui;
 
-import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -13,19 +12,17 @@ import java.util.List;
 import java.util.Map;
 
 public class TableController {
-    private Pizzeria pizzeria = Pizzeria.getInstance();
-
-    @FXML
-    private GridPane tablesGrid;
-
+    private final GridPane tablesGrid;
+    private final List<Map<ImageView, Table>> imageViews = new ArrayList<>();
     private Image emptyTable;
     private Image eatingTable;
     private Image waitingTable;
 
-    List<Map<ImageView, Table>> imageViews = new ArrayList<>();
+    public TableController(GridPane tablesGrid) {
+        this.tablesGrid = tablesGrid;
+    }
 
-    @FXML
-    public void initialize() {
+    public void init() {
         emptyTable = new Image("table_empty.jpg");
         eatingTable = new Image("table_eating.jpg");
         waitingTable = new Image("table_waiting.jpg");
@@ -39,7 +36,7 @@ public class TableController {
         int rowCount = tablesGrid.getRowCount();
 
         int tablesCounter = 0;
-        int tablesAmount = pizzeria.getTables().size();
+        int tablesAmount = Pizzeria.getInstance().getTables().size();
         for (int i = 0; i < columnCount; i++) {
             Map<ImageView, Table> column = new HashMap<>();
 
@@ -62,31 +59,15 @@ public class TableController {
         for (int i = 0; i < rowCount; i++) {
             tablesGrid.getRowConstraints().get(i).setPercentHeight(tileSize);
         }
-        draw();
-        update();
     }
 
     public void update() {
-        new Thread(() -> {
-            while (true) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-                draw();
-            }
-        }).start();
-    }
-
-    public void draw() {
         for (Map<ImageView, Table> viewsTables : imageViews) {
             for (var viewTable : viewsTables.entrySet()) {
                 switch (viewTable.getValue().getTableState()) {
-                case EMPTY -> viewTable.getKey().setImage(emptyTable);
-                case CUSTOMER_EATING -> viewTable.getKey().setImage(eatingTable);
-                case CUSTOMER_WAITING -> viewTable.getKey().setImage(waitingTable);
+                    case EMPTY -> viewTable.getKey().setImage(emptyTable);
+                    case CUSTOMER_EATING -> viewTable.getKey().setImage(eatingTable);
+                    case CUSTOMER_WAITING -> viewTable.getKey().setImage(waitingTable);
                 }
             }
         }

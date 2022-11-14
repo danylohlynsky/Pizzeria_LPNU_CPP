@@ -30,6 +30,10 @@ public class Configuration {
     private TableView<Order> table;
     @FXML
     private GridPane gridPane;
+    @FXML
+    private GridPane tablesGrid;
+
+    private TableController tableController;
 
     @FXML
     protected void onStartClick() {
@@ -42,6 +46,7 @@ public class Configuration {
 
         Pizzeria.getInstance().start(minSecondsForPizza, differentPizzaAmount, tablesAmount, cashiersAmount, cookMode,
                 cooksAmount);
+        tableController.init();
     }
 
     public void initPanel() {
@@ -60,12 +65,14 @@ public class Configuration {
         QueueController queueController = new QueueController(queueGrid);
         OrderListController orderListController = new OrderListController(table);
         CooksController cooksController = new CooksController(gridPane);
+        tableController = new TableController(tablesGrid);
 
         new Thread(() -> {
             while (true) {
                 queueController.update();
                 orderListController.update();
                 cooksController.update();
+                tableController.update();
             }
         }).start();
     }

@@ -46,11 +46,11 @@ public class CooksController {
             images.put(AllCookStates.TOPPING_BREAK,
                     new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png")));
             images.put(AllCookStates.BAKER_BREAK,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/baker_busy.png")));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png")));
             images.put(AllCookStates.BAKER_READY,
                     new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/ready.png")));
             images.put(AllCookStates.BAKER_BUSY,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png")));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/baker_busy.png")));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
