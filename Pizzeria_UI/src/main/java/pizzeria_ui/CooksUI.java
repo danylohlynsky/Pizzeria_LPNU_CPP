@@ -1,4 +1,4 @@
-package com.example.pizzeria_ui;
+package pizzeria_ui;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
