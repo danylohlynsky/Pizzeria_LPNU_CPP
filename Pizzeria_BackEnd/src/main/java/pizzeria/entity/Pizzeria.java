@@ -12,7 +12,6 @@ import java.util.Random;
 @Setter
 public class Pizzeria {
     private static Pizzeria instance;
-
     private List<Cook> cooks;
 
     private List<Table> tables;
