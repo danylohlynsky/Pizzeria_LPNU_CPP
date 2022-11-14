@@ -1,16 +1,12 @@
 package pizzeria_ui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import pizzeria.entity.Pizzeria;
 import pizzeria.entity.Table;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,33 +20,16 @@ public class TableController {
 
     private Image emptyTable;
     private Image eatingTable;
+    private Image waitingTable;
 
     List<Map<ImageView, Table>> imageViews = new ArrayList<>();
-
-    // List<ImageView> queue;
 
 
     @FXML
     public void initialize() {
-
-        List<Table> testTables = new ArrayList<>();
-        testTables.add(new Table(true));
-        testTables.add(new Table(true));
-        testTables.add(new Table(true));
-        testTables.add(new Table(true));
-        testTables.add(new Table(true));
-        testTables.add(new Table(true));
-        testTables.add(new Table(false));
-        testTables.add(new Table(false));
-        testTables.add(new Table(false));
-        testTables.add(new Table(false));
-        testTables.add(new Table(false));
-        testTables.add(new Table(false));
-        Pizzeria.getInstance().setTables(testTables);
-
-
-        emptyTable = new Image("empty_table.jpg");
-        eatingTable = new Image("eating_table.jpeg");
+        emptyTable = new Image("table_empty.jpg");
+        eatingTable = new Image("table_eating.jpg");
+        waitingTable = new Image("table_waiting.jpg");
         int sizeWidth = (int) tablesGrid.getPrefWidth();
         int sizeHeight = (int) tablesGrid.getPrefHeight();
         int tileWidth = sizeWidth / tablesGrid.getColumnCount();
@@ -85,17 +64,29 @@ public class TableController {
             tablesGrid.getRowConstraints().get(i).setPercentHeight(tileSize);
         }
         draw();
+        update();
+    }
+
+    public void update() {
+        new Thread(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                draw();
+            }
+        }).start();
     }
     public void draw() {
-        List<Table> tables = Pizzeria.getInstance().getTables();
-
-        for (int i = 0; i < imageViews.size(); i++) {
-            Map<ImageView, Table> viewsTables = imageViews.get(i);
-            for(var viewTable : viewsTables.entrySet()) {
-                if (viewTable.getValue().isAvailable()) {
-                    viewTable.getKey().setImage(emptyTable);
-                } else {
-                    viewTable.getKey().setImage(eatingTable);
+        for (Map<ImageView, Table> viewsTables : imageViews) {
+            for (var viewTable : viewsTables.entrySet()) {
+                switch (viewTable.getValue().getTableState()) {
+                    case EMPTY -> viewTable.getKey().setImage(emptyTable);
+                    case CUSTOMER_EATING -> viewTable.getKey().setImage(eatingTable);
+                    case CUSTOMER_WAITING -> viewTable.getKey().setImage(waitingTable);
                 }
             }
         }
