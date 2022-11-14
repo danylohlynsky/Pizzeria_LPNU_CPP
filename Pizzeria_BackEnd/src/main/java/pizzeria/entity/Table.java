@@ -8,5 +8,5 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 public class Table {
-    private boolean available;
+    private TableState tableState;
 }
