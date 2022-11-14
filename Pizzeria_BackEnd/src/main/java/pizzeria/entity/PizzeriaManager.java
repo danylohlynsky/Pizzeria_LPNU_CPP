@@ -8,19 +8,20 @@ public class PizzeriaManager {
     private final Pizzeria pizzeria = Pizzeria.getInstance();
 
     public void generateClient() {
-        if (pizzeria.isOpen() && pizzeria.getTables().stream().anyMatch(table -> table.getTableState().equals(TableState.EMPTY))) {
-            Table table = pizzeria.getTables().stream().filter(t -> t.getTableState().equals(TableState.EMPTY)).findFirst().get();
-            table.setTableState(TableState.CUSTOMER_WAITING);
-            Customer customer = new Customer(table, generateOrder());
-            customer.chooseCashier(pizzeria.getCashiers());
-            customer.getOrder().setCustomer(customer);
-            pizzeria.getCustomers().add(customer);
-        }
-        try {
-            Thread.sleep(5000);
-            generateClient();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while (true) {
+            if (pizzeria.isOpen() && pizzeria.getTables().stream().anyMatch(table -> table.getTableState().equals(TableState.EMPTY))) {
+                Table table = pizzeria.getTables().stream().filter(t -> t.getTableState().equals(TableState.EMPTY)).findFirst().get();
+                table.setTableState(TableState.CUSTOMER_WAITING);
+                Customer customer = new Customer(table, generateOrder());
+                customer.chooseCashier(pizzeria.getCashiers());
+                customer.getOrder().setCustomer(customer);
+                pizzeria.getCustomers().add(customer);
+            }
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
