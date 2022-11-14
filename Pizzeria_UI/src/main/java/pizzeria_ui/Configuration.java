@@ -28,6 +28,8 @@ public class Configuration {
     private GridPane queueGrid;
     @FXML
     private TableView<Order> table;
+    @FXML
+    private GridPane gridPane;
 
     @FXML
     protected void onStartClick() {
@@ -35,7 +37,7 @@ public class Configuration {
         int differentPizzaAmount = this.differentPizzaAmount.getValue();
         int tablesAmount = this.tablesAmount.getValue();
         int cashiersAmount = this.cashiersAmount.getValue();
-        int cookMode = Objects.equals(this.cookMode.getValue(), "Fullstack") ? 1 : 0;
+        int cookMode = Objects.equals(this.cookMode.getValue(), "Fullstack") ? 0 : 1;
         int cooksAmount = this.cooksAmount.getValue();
 
         Pizzeria.getInstance().start(minSecondsForPizza, differentPizzaAmount, tablesAmount, cashiersAmount, cookMode,
@@ -57,11 +59,13 @@ public class Configuration {
         initPanel();
         QueueController queueController = new QueueController(queueGrid);
         OrderListController orderListController = new OrderListController(table);
+        CooksController cooksController = new CooksController(gridPane);
 
         new Thread(() -> {
             while (true) {
                 queueController.update();
                 orderListController.update();
+                cooksController.update();
             }
         }).start();
     }

@@ -1,7 +1,5 @@
 package pizzeria_ui;
 
-import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -14,79 +12,52 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-enum AllCookStates {
-    NONE, FULLSTACK_READY, FULLSTACK_BREAK, FULLSTACK_BUSY, DOUGH_READY, DOUGH_BREAK, DOUGH_BUSY, TOPPING_READY,
-    TOPPING_BREAK, TOPPING_BUSY, BAKER_READY, BAKER_BREAK, BAKER_BUSY
-}
-
-public class CooksUI {
+public class CooksController {
     private HashMap<AllCookStates, Image> images;
-
     private List<List<ImageView>> imageViews;
-    @FXML
-    private GridPane gridPane;
+    private final GridPane gridPane;
 
-    private void setImages(int cooksAmount) {
-        double h = gridPane.getMaxHeight();
-        double w = gridPane.getMaxWidth();
-        double imgWidth = cooksAmount <= 5 ? w / cooksAmount : w / 5;
-        double imgHeight = cooksAmount <= 5 ? h : h / 2;
+    public CooksController(GridPane gridPane) {
+        this.gridPane = gridPane;
+        init();
+    }
+
+    private void setImages() {
 
         try {
             images.put(AllCookStates.NONE,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/empty.jpg"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/empty.jpg")));
             images.put(AllCookStates.FULLSTACK_READY,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/ready.png"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/ready.png")));
             images.put(AllCookStates.FULLSTACK_BUSY,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/fullstack_busy.png"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/fullstack_busy.png")));
             images.put(AllCookStates.FULLSTACK_BREAK,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png")));
             images.put(AllCookStates.DOUGH_READY,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/ready.png"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/ready.png")));
             images.put(AllCookStates.DOUGH_BREAK,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png")));
             images.put(AllCookStates.DOUGH_BUSY,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/dough_busy.png"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/dough_busy.png")));
             images.put(AllCookStates.TOPPING_BUSY,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/topping_busy.png"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/topping_busy.png")));
             images.put(AllCookStates.TOPPING_READY,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/ready.png"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/ready.png")));
             images.put(AllCookStates.TOPPING_BREAK,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png")));
             images.put(AllCookStates.BAKER_BREAK,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/baker_busy.png"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/baker_busy.png")));
             images.put(AllCookStates.BAKER_READY,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/ready.png"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/ready.png")));
             images.put(AllCookStates.BAKER_BUSY,
-                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png"), imgWidth,
-                            imgHeight, true, true));
+                    new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png")));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void setGridSize(int w, int h) {
-        gridPane.setMinSize(w, h);
-        gridPane.setMaxSize(w, h);
-        gridPane.setVgap(5);
-        gridPane.setHgap(5);
-        gridPane.setAlignment(Pos.CENTER);
-    }
 
-    public void updateCooks() {
-
+    public void update() {
         var cooks = Pizzeria.getInstance().getCooks();
         int j = 0;
         int k = 0;
@@ -140,20 +111,9 @@ public class CooksUI {
         }
     }
 
-    @FXML
-    public void initialize() {
-        int minSecondsForPizza = 1;
-        int differentPizzaAmount = 3;
-        int tablesAmount = 4;
-        int cashiersAmount = 4;
-        int cookMode = 0;
-        int cooksAmount = 4;
-
+    public void init() {
         this.images = new HashMap<>();
-        setImages(cooksAmount);
-
-        Pizzeria.getInstance().start(minSecondsForPizza, differentPizzaAmount, tablesAmount, cashiersAmount, cookMode,
-                cooksAmount);
+        setImages();
 
         imageViews = new ArrayList<>();
 
@@ -179,14 +139,10 @@ public class CooksUI {
             gridPane.getColumnConstraints().get(i).setPrefWidth(size);
 
         }
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    updateCooks();
-                }
-            }
-        }).start();
     }
 
+    public enum AllCookStates {
+        NONE, FULLSTACK_READY, FULLSTACK_BREAK, FULLSTACK_BUSY, DOUGH_READY, DOUGH_BREAK, DOUGH_BUSY, TOPPING_READY,
+        TOPPING_BREAK, TOPPING_BUSY, BAKER_READY, BAKER_BREAK, BAKER_BUSY
+    }
 }
