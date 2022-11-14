@@ -58,7 +58,7 @@ public class Pizzeria {
         this.setDifferentPizzaAmount(differentPizzaAmount);
         List<Table> tables = new ArrayList<>();
         for (int i = 0; i < tablesAmount; i++) {
-            tables.add(new Table(true));
+            tables.add(new Table(TableState.EMPTY));
         }
         this.setTables(tables);
 
