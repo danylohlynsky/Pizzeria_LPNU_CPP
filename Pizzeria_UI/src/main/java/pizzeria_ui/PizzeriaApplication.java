@@ -1,4 +1,4 @@
-package com.example.pizzeria_ui;
+package pizzeria_ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

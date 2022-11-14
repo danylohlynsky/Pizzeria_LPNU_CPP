@@ -10,7 +10,6 @@ public class Cashier extends Thread {
         this.customers = new ArrayList<>();
     }
 
-    // should be singleton
     private final static Pizzeria pizzeria = Pizzeria.getInstance();
 
     public void nextCustomer(Customer customer) throws InterruptedException {
@@ -23,8 +22,7 @@ public class Cashier extends Thread {
         customers.remove(customer);
     }
 
-    @Override
-    public void run() {
+    private void startWork() {
         if (!customers.isEmpty()) {
             try {
                 nextCustomer(customers.get(0));
@@ -37,7 +35,12 @@ public class Cashier extends Thread {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        run();
+        startWork();
+    }
+
+    @Override
+    public void run() {
+        startWork();
     }
 
     public int getCustomersAmount() {

@@ -1,4 +1,4 @@
-package com.example.pizzeria_ui;
+package pizzeria_ui;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
