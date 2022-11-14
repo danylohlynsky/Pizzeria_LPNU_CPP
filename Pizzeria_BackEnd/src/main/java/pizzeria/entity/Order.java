@@ -42,11 +42,7 @@ public class Order {
     }
 
     public String getOrder() {
-        var pizzaTitlesList = pizzas
-                .stream()
-                .map(Pizza::getPizzaSettings)
-                .map(PizzaSettings::getTitle)
-                .toList();
+        var pizzaTitlesList = pizzas.stream().map(Pizza::getPizzaSettings).map(PizzaSettings::getTitle).toList();
 
         return String.join(", ", pizzaTitlesList);
     }

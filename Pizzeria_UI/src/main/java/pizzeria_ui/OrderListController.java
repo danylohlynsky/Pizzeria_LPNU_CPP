@@ -10,7 +10,9 @@ import java.util.List;
 
 /**
  * @author Oleh Hembarovskyi
+ *
  * @link oleh.hembarovskyi@embrox.com
+ *
  * @since 14/11/2022
  **/
 public class OrderListController {
@@ -33,7 +35,6 @@ public class OrderListController {
 
         table.getColumns().addAll(customerColumn, pizzasColumn, stateColumn);
     }
-
 
     public void update() {
         List<Order> orders = Pizzeria.getInstance().getQueue();

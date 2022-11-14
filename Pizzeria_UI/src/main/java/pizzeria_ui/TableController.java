@@ -65,9 +65,9 @@ public class TableController {
         for (Map<ImageView, Table> viewsTables : imageViews) {
             for (var viewTable : viewsTables.entrySet()) {
                 switch (viewTable.getValue().getTableState()) {
-                    case EMPTY -> viewTable.getKey().setImage(emptyTable);
-                    case CUSTOMER_EATING -> viewTable.getKey().setImage(eatingTable);
-                    case CUSTOMER_WAITING -> viewTable.getKey().setImage(waitingTable);
+                case EMPTY -> viewTable.getKey().setImage(emptyTable);
+                case CUSTOMER_EATING -> viewTable.getKey().setImage(eatingTable);
+                case CUSTOMER_WAITING -> viewTable.getKey().setImage(waitingTable);
                 }
             }
         }

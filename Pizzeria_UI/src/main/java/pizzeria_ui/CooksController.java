@@ -56,7 +56,6 @@ public class CooksController {
         }
     }
 
-
     public void update() {
         var cooks = Pizzeria.getInstance().getCooks();
         int j = 0;
