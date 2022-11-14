@@ -1,6 +1,7 @@
 package com.example.pizzeria_ui;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -16,11 +17,12 @@ import java.util.HashMap;
 
 enum AllCookStates {FULLSTACK_READY, FULLSTACK_BREAK, FULLSTACK_BUSY,
                     DOUGH_READY, DOUGH_BREAK, DOUGH_BUSY,
-     TOPPING_READY,TOPPING_BREAK, TOPPING_BUSY,
+    TOPPING_READY,TOPPING_BREAK, TOPPING_BUSY,
      BAKER_READY, BAKER_BREAK, BAKER_BUSY}
-public class CooksApplication extends Application {
+public class CooksApplication {
 
     private HashMap<AllCookStates, Image> images;
+    @FXML
     private GridPane gridPane;
 
     public CooksApplication(int cooksAmount, int cookMode) throws IOException {
@@ -71,14 +73,23 @@ public class CooksApplication extends Application {
         gridPane.setAlignment(Pos.CENTER);
     }
 
-    @Override
+
     public void start(Stage stage) throws IOException {
-            updateCooks();
+
             Scene scene = new Scene(gridPane);
             stage.setTitle("Pizzeria");
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    while(true) {
+//                        updateCooks();
+//
+//                    }
+//                }
+//            }).start();
 
     }
 
@@ -92,42 +103,42 @@ public class CooksApplication extends Application {
 
             var c = cook.getClass();
 
-            var imgFullStack = new ImageView();
+            var image = new ImageView();
             if (c == FullStackCook.class) {
                 if(cook.getCookState() == CookState.AVAILABLE){
-                    imgFullStack = new ImageView(images.get(AllCookStates.FULLSTACK_READY));
+                    image = new ImageView(images.get(AllCookStates.FULLSTACK_READY));
                 } else if(cook.getCookState() == CookState.BUSY){
-                    imgFullStack = new ImageView(images.get(AllCookStates.FULLSTACK_BUSY));
+                    image = new ImageView(images.get(AllCookStates.FULLSTACK_BUSY));
                 }else if(cook.getCookState() == CookState.OUT){
-                    imgFullStack = new ImageView(images.get(AllCookStates.FULLSTACK_BREAK));
+                    image = new ImageView(images.get(AllCookStates.FULLSTACK_BREAK));
                 }
             }else if (c == DoughCook.class) {
                 if(cook.getCookState() == CookState.AVAILABLE){
-                    imgFullStack = new ImageView(images.get(AllCookStates.DOUGH_BUSY));
+                    image = new ImageView(images.get(AllCookStates.DOUGH_BUSY));
                 } else if(cook.getCookState() == CookState.BUSY){
-                    imgFullStack = new ImageView(images.get(AllCookStates.DOUGH_BUSY));
+                    image = new ImageView(images.get(AllCookStates.DOUGH_BUSY));
                 }else if(cook.getCookState() == CookState.OUT){
-                    imgFullStack = new ImageView(images.get(AllCookStates.DOUGH_BREAK));
+                    image = new ImageView(images.get(AllCookStates.DOUGH_BREAK));
                 }
             }else if (c == ToppingCook.class) {
                 if(cook.getCookState() == CookState.AVAILABLE){
-                    imgFullStack = new ImageView(images.get(AllCookStates.TOPPING_READY));
+                    image = new ImageView(images.get(AllCookStates.TOPPING_READY));
                 } else if(cook.getCookState() == CookState.BUSY){
-                    imgFullStack = new ImageView(images.get(AllCookStates.TOPPING_BUSY));
+                    image = new ImageView(images.get(AllCookStates.TOPPING_BUSY));
                 }else if(cook.getCookState() == CookState.OUT){
-                    imgFullStack = new ImageView(images.get(AllCookStates.TOPPING_BREAK));
+                    image = new ImageView(images.get(AllCookStates.TOPPING_BREAK));
                 }
             }else if (c == BakerCook.class) {
                 if(cook.getCookState() == CookState.AVAILABLE){
-                    imgFullStack = new ImageView(images.get(AllCookStates.BAKER_READY));
+                    image = new ImageView(images.get(AllCookStates.BAKER_READY));
                 } else if(cook.getCookState() == CookState.BUSY){
-                    imgFullStack = new ImageView(images.get(AllCookStates.BAKER_BUSY));
+                    image = new ImageView(images.get(AllCookStates.BAKER_BUSY));
                 }else if(cook.getCookState() == CookState.OUT){
-                    imgFullStack = new ImageView(images.get(AllCookStates.BAKER_BREAK));
+                    image = new ImageView(images.get(AllCookStates.BAKER_BREAK));
                 }
             }
 
-            gridPane.add(imgFullStack, j, k, 1, 1);
+            gridPane.add(image, j, k, 1, 1);
             j++;
 
             if(j == 5){
@@ -146,10 +157,6 @@ public class CooksApplication extends Application {
         Pizzeria.getInstance().start(minSecondsForPizza, differentPizzaAmount, tablesAmount, cashiersAmount, cookMode,
                 cooksAmount);
     }
-
-    public static void main(String[] args) {
-        launch();
-    }
-
+ 
 
 }
