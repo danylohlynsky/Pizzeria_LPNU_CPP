@@ -27,7 +27,7 @@ public class Configuration {
     private ChoiceBox<String> cookMode;
 
     @FXML
-    private TableView<Order> table;
+    private TableView<String> table;
 //    @FXML
 //    private TableColumn<Order, String> customerColumn;
     @FXML
@@ -59,24 +59,18 @@ public class Configuration {
         cookMode.getItems().addAll("Fullstack", "Team");
         cookMode.setValue("Fullstack");
 
-        table = new TableView<Order>(getOrderList());
         orderColumn = new TableColumn<>("Order");
 
         List<Order> orders = getOrderList();
-        var pizzaTitlesList = orders.stream()
+        List<String> pizzaTitlesList = orders.stream()
                 .map(Order::getPizzas)
-                .toList()
-                .stream()
                 .flatMap(List::stream)
-                .toList()
-                .stream().map(Pizza::getPizzaSettings)
-                .toList()
-                .stream().map(PizzaSettings::getTitle)
+                .map(Pizza::getPizzaSettings)
+                .map(PizzaSettings::getTitle)
                 .toList();
 
         String pizzaTitles = String.join(", ", pizzaTitlesList);
-        orderColumn.setCellValueFactory(new PropertyValueFactory<Order, String>(pizzaTitles));
-        table.getColumns().add(orderColumn);
+        table.getItems().addAll(pizzaTitlesList);
     }
 
     ObservableList<Order> getOrderList() {
