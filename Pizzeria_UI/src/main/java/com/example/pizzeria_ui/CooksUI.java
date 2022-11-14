@@ -35,11 +35,11 @@ public class CooksUI {
         try {
             images.put(AllCookStates.NONE, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/empty.jpg"),
                     imgWidth, imgHeight, true, true));
-            images.put(AllCookStates.FULLSTACK_READY, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/fullstack_ready.png"),
+            images.put(AllCookStates.FULLSTACK_READY, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/ready.png"),
                     imgWidth, imgHeight, true, true));
         images.put(AllCookStates.FULLSTACK_BUSY, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/fullstack_busy.png"),
                 imgWidth, imgHeight, true, true));
-        images.put(AllCookStates.FULLSTACK_BREAK, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/fullstack_break.png"),
+        images.put(AllCookStates.FULLSTACK_BREAK, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png"),
                 imgWidth, imgHeight, true, true));
         images.put(AllCookStates.DOUGH_READY, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/ready.png"),
                 imgWidth, imgHeight, true, true));
@@ -55,9 +55,9 @@ public class CooksUI {
                 imgWidth, imgHeight, true, true));
         images.put(AllCookStates.BAKER_BREAK, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/baker_busy.png"),
                 imgWidth, imgHeight, true, true));
-        images.put(AllCookStates.BAKER_READY, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/baker_ready.png"),
+        images.put(AllCookStates.BAKER_READY, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/ready.png"),
                 imgWidth, imgHeight, true, true));
-        images.put(AllCookStates.BAKER_BUSY, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/baker_break.png"),
+        images.put(AllCookStates.BAKER_BUSY, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/break.png"),
                 imgWidth, imgHeight, true, true));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
