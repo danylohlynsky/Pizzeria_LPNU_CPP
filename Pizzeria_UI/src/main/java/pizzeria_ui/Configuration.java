@@ -1,12 +1,14 @@
 package pizzeria_ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.GridPane;
 import pizzeria.entity.Order;
 import pizzeria.entity.Pizzeria;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Configuration {
@@ -22,10 +24,10 @@ public class Configuration {
     private Spinner<Integer> cooksAmount;
     @FXML
     private ChoiceBox<String> cookMode;
-
+    @FXML
+    private GridPane queueGrid;
     @FXML
     private TableView<Order> table;
-
 
     @FXML
     protected void onStartClick() {
@@ -40,8 +42,7 @@ public class Configuration {
                 cooksAmount);
     }
 
-    @FXML
-    public void initialize() {
+    public void initPanel() {
         minSecondsForPizza.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10));
         differentPizzaAmount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10));
         tablesAmount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10));
@@ -49,33 +50,19 @@ public class Configuration {
         cooksAmount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10));
         cookMode.getItems().addAll("Team", "Fullstack");
         cookMode.setValue("Fullstack");
-        Pizzeria pizzeria = Pizzeria.getInstance();
+    }
 
-        TableColumn<Order, String> customerColumn = new TableColumn<>("Customer");
-        customerColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
-
-        TableColumn<Order, String> pizzasColumn = new TableColumn<>("Order");
-        pizzasColumn.setCellValueFactory(new PropertyValueFactory<>("order"));
-
-        TableColumn<Order, String> stateColumn = new TableColumn<>("State");
-        stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
-
-        table.getColumns().addAll(customerColumn, pizzasColumn, stateColumn);
-
+    @FXML
+    public void initialize() {
+        initPanel();
+        QueueController queueController = new QueueController(queueGrid);
+        OrderListController orderListController = new OrderListController(table);
 
         new Thread(() -> {
             while (true) {
-                List<Order> orders = pizzeria.getQueue();
-                table.getItems().clear();
-                table.getItems().addAll(orders);
-
-                try {
-                    Thread.sleep(250);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                queueController.update();
+                orderListController.update();
             }
         }).start();
     }
-
 }

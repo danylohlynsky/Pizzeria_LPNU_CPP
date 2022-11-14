@@ -11,7 +11,7 @@ public class PizzeriaApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PizzeriaApplication.class.getResource("orderState-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 500, 500);
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 800);
         stage.setTitle("Pizzeria");
         stage.setScene(scene);
         stage.setResizable(false);
