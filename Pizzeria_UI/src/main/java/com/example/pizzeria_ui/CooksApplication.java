@@ -12,35 +12,35 @@ import pizzeria.entity.Pizzeria;
 import pizzeria.entity.cooks.*;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
-enum AllCookStates {FULLSTACK_READY, FULLSTACK_BREAK, FULLSTACK_BUSY,
+enum AllCookStates {NONE, FULLSTACK_READY, FULLSTACK_BREAK, FULLSTACK_BUSY,
                     DOUGH_READY, DOUGH_BREAK, DOUGH_BUSY,
     TOPPING_READY,TOPPING_BREAK, TOPPING_BUSY,
      BAKER_READY, BAKER_BREAK, BAKER_BUSY}
 public class CooksApplication {
-
     private HashMap<AllCookStates, Image> images;
+
+    private List<List<ImageView>> imageViews;
     @FXML
     private GridPane gridPane;
 
-    public CooksApplication(int cooksAmount, int cookMode) throws IOException {
-        gridPane = new GridPane();
-        setGridSize(800, 400);
-        this.images = new HashMap<>();
-        setImages(cooksAmount);
-        initialize(cookMode, cooksAmount);
-    }
 
-    private void setImages(int cooksAmount) throws IOException {
+    private void setImages(int cooksAmount) {
         double h = gridPane.getMaxHeight();
         double w = gridPane.getMaxWidth();
         double imgWidth = cooksAmount <= 5 ? w/cooksAmount : w/5;
         double imgHeight = cooksAmount <= 5 ? h : h/2;
 
-        images.put(AllCookStates.FULLSTACK_READY, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/fullstack_ready.png"),
-                imgWidth, imgHeight, true, true));
+        try {
+            images.put(AllCookStates.NONE, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/empty.jpg"),
+                    imgWidth, imgHeight, true, true));
+            images.put(AllCookStates.FULLSTACK_READY, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/fullstack_ready.png"),
+                    imgWidth, imgHeight, true, true));
         images.put(AllCookStates.FULLSTACK_BUSY, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/fullstack_busy.png"),
                 imgWidth, imgHeight, true, true));
         images.put(AllCookStates.FULLSTACK_BREAK, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/fullstack_break.png"),
@@ -63,6 +63,9 @@ public class CooksApplication {
                 imgWidth, imgHeight, true, true));
         images.put(AllCookStates.BAKER_BUSY, new Image(new FileInputStream("Pizzeria_UI/src/main/resources/images/baker_break.png"),
                 imgWidth, imgHeight, true, true));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void setGridSize(int w, int h){
@@ -71,26 +74,6 @@ public class CooksApplication {
         gridPane.setVgap(5);
         gridPane.setHgap(5);
         gridPane.setAlignment(Pos.CENTER);
-    }
-
-
-    public void start(Stage stage) throws IOException {
-
-            Scene scene = new Scene(gridPane);
-            stage.setTitle("Pizzeria");
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    while(true) {
-//                        updateCooks();
-//
-//                    }
-//                }
-//            }).start();
-
     }
 
     public void updateCooks(){
@@ -103,42 +86,43 @@ public class CooksApplication {
 
             var c = cook.getClass();
 
-            var image = new ImageView();
+            Image image = null;
             if (c == FullStackCook.class) {
                 if(cook.getCookState() == CookState.AVAILABLE){
-                    image = new ImageView(images.get(AllCookStates.FULLSTACK_READY));
+                    image = images.get(AllCookStates.FULLSTACK_READY);
                 } else if(cook.getCookState() == CookState.BUSY){
-                    image = new ImageView(images.get(AllCookStates.FULLSTACK_BUSY));
+                    image = images.get(AllCookStates.FULLSTACK_BUSY);
                 }else if(cook.getCookState() == CookState.OUT){
-                    image = new ImageView(images.get(AllCookStates.FULLSTACK_BREAK));
+                    image = images.get(AllCookStates.FULLSTACK_BREAK);
                 }
             }else if (c == DoughCook.class) {
                 if(cook.getCookState() == CookState.AVAILABLE){
-                    image = new ImageView(images.get(AllCookStates.DOUGH_BUSY));
+                    image = images.get(AllCookStates.DOUGH_BUSY);
                 } else if(cook.getCookState() == CookState.BUSY){
-                    image = new ImageView(images.get(AllCookStates.DOUGH_BUSY));
+                    image = images.get(AllCookStates.DOUGH_BUSY);
                 }else if(cook.getCookState() == CookState.OUT){
-                    image = new ImageView(images.get(AllCookStates.DOUGH_BREAK));
+                    image = images.get(AllCookStates.DOUGH_BREAK);
                 }
             }else if (c == ToppingCook.class) {
                 if(cook.getCookState() == CookState.AVAILABLE){
-                    image = new ImageView(images.get(AllCookStates.TOPPING_READY));
+                    image = images.get(AllCookStates.TOPPING_READY);
                 } else if(cook.getCookState() == CookState.BUSY){
-                    image = new ImageView(images.get(AllCookStates.TOPPING_BUSY));
+                    image = images.get(AllCookStates.TOPPING_BUSY);
                 }else if(cook.getCookState() == CookState.OUT){
-                    image = new ImageView(images.get(AllCookStates.TOPPING_BREAK));
+                    image = images.get(AllCookStates.TOPPING_BREAK);
                 }
             }else if (c == BakerCook.class) {
                 if(cook.getCookState() == CookState.AVAILABLE){
-                    image = new ImageView(images.get(AllCookStates.BAKER_READY));
+                    image = images.get(AllCookStates.BAKER_READY);
                 } else if(cook.getCookState() == CookState.BUSY){
-                    image = new ImageView(images.get(AllCookStates.BAKER_BUSY));
+                    image = images.get(AllCookStates.BAKER_BUSY);
                 }else if(cook.getCookState() == CookState.OUT){
-                    image = new ImageView(images.get(AllCookStates.BAKER_BREAK));
+                    image = images.get(AllCookStates.BAKER_BREAK);
                 }
             }
 
-            gridPane.add(image, j, k, 1, 1);
+
+            imageViews.get(k).get(j).setImage(image);
             j++;
 
             if(j == 5){
@@ -148,15 +132,55 @@ public class CooksApplication {
         }
     }
 
-    public void initialize(int cookMode, int cooksAmount){
+    @FXML
+    public void initialize(){
         int minSecondsForPizza = 1;
         int differentPizzaAmount = 3;
         int tablesAmount = 4;
         int cashiersAmount = 4;
+        int cookMode = 0;
+        int cooksAmount = 4;
+
+        this.images = new HashMap<>();
+        setImages(cooksAmount);
 
         Pizzeria.getInstance().start(minSecondsForPizza, differentPizzaAmount, tablesAmount, cashiersAmount, cookMode,
                 cooksAmount);
+
+        imageViews = new ArrayList<>();
+
+
+        int height = 500/2;
+        int width = 500/5;
+        int size = Math.min(height, width);
+        for(int i = 0; i < 2; i++){
+            gridPane.getRowConstraints().get(i).setPrefHeight(size);
+
+            List<ImageView> views = new ArrayList<>();
+            for(int j = 0; j < 5; j++){
+                var view = new ImageView(images.get(AllCookStates.NONE));
+                view.setFitHeight(size);
+                view.setFitWidth(size);
+
+                gridPane.add(view, j, i);
+                views.add(view);
+            }
+            imageViews.add(views);
+        }
+
+        for(int i = 0; i < 5; i++) {
+            gridPane.getColumnConstraints().get(i).setPrefWidth(size);
+
+        }
+         new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true) {
+                  updateCooks();
+                }
+                }
+            }).start();
     }
- 
+
 
 }
