@@ -1,13 +1,16 @@
 package com.example.pizzeria_ui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import pizzeria.entity.Pizzeria;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import pizzeria.entity.*;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class Configuration {
     @FXML
@@ -22,6 +25,16 @@ public class Configuration {
     private Spinner<Integer> cooksAmount;
     @FXML
     private ChoiceBox<String> cookMode;
+
+    @FXML
+    private TableView<Order> table;
+//    @FXML
+//    private TableColumn<Order, String> customerColumn;
+    @FXML
+    private TableColumn<Order, String> orderColumn;
+//    @FXML
+//    private TableColumn<?> stateColumn;
+
 
     @FXML
     protected void onStartClick() {
@@ -45,5 +58,43 @@ public class Configuration {
         cooksAmount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10));
         cookMode.getItems().addAll("Fullstack", "Team");
         cookMode.setValue("Fullstack");
+
+        table = new TableView<Order>(getOrderList());
+        orderColumn = new TableColumn<>("Order");
+
+        List<Order> orders = getOrderList();
+        var pizzaTitlesList = orders.stream()
+                .map(Order::getPizzas)
+                .toList()
+                .stream()
+                .flatMap(List::stream)
+                .toList()
+                .stream().map(Pizza::getPizzaSettings)
+                .toList()
+                .stream().map(PizzaSettings::getTitle)
+                .toList();
+
+        String pizzaTitles = String.join(", ", pizzaTitlesList);
+        orderColumn.setCellValueFactory(new PropertyValueFactory<Order, String>(pizzaTitles));
+        table.getColumns().add(orderColumn);
+    }
+
+    ObservableList<Order> getOrderList() {
+        ObservableList<Order> orders = FXCollections.observableArrayList();
+        orders.add(new Order(
+                List.of(
+                        new Pizza(new PizzaSettings("TestPizza 1", 30)),
+                        new Pizza(new PizzaSettings("TestPizza 2", 20))
+                )
+        ));
+                orders.add(new Order(
+                List.of(
+                        new Pizza(new PizzaSettings("TestPizza 3", 50)),
+                        new Pizza(new PizzaSettings("TestPizza 4", 40))
+                )
+        )
+
+        );
+        return orders;
     }
 }

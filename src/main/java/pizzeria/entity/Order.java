@@ -9,7 +9,7 @@ import java.util.concurrent.CountDownLatch;
 @Setter
 @Getter
 public class Order {
-    private List<Pizza> pizzas;
+    public List<Pizza> pizzas;
     private Customer customer;
     private CountDownLatch countDownLatch;
 

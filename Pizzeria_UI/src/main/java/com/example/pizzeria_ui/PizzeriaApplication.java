@@ -10,7 +10,7 @@ import java.io.IOException;
 public class PizzeriaApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(PizzeriaApplication.class.getResource("hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(PizzeriaApplication.class.getResource("orderState-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 500);
         stage.setTitle("Pizzeria");
         stage.setScene(scene);
