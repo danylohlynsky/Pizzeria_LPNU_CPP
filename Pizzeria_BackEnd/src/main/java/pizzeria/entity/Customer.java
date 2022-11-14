@@ -31,13 +31,15 @@ public class Customer {
     }
 
     public void eat() {
+        table.setTableState(TableState.CUSTOMER_EATING);
+
         try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        table.setAvailable(Boolean.TRUE);
+        table.setTableState(TableState.EMPTY);
     }
 
     public String getName() {
