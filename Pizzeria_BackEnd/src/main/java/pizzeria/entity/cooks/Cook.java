@@ -1,5 +1,6 @@
 package pizzeria.entity.cooks;
 
+import pizzeria.entity.Logger;
 import pizzeria.entity.Pizza;
 import pizzeria.entity.Pizzeria;
 
@@ -14,6 +15,7 @@ public abstract class Cook extends Thread {
     // protected int time = pizzeria.getMinSecondsForPizza();
     protected Timer timer = new Timer();
     protected int time = 3; // час для відлагодження програми
+    protected Logger logger = new Logger();
 
     protected void takeBreak() {
         boolean haveBreak = new Random().nextInt(1, 10) == 5;

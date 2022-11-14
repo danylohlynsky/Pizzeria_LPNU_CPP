@@ -4,7 +4,7 @@ public class FullStackCook extends Cook {
     @Override
     public void takeTask() {
         pizza = pizzeria.getDoughQueue().getPizzaAndRemoveFromQueue();
-
+        logger.log(String.format("Fullstack start cook %s", pizza.getPizzaSettings().getTitle()));
         if (pizza != null) {
             state = CookState.BUSY;
             System.out.println(
@@ -17,6 +17,7 @@ public class FullStackCook extends Cook {
 
     @Override
     public void finishTask() {
+        logger.log(String.format("Fullstack finish cook %s", pizza.getPizzaSettings().getTitle()));
         pizza.pizzaReady();
         state = CookState.AVAILABLE;
         System.out.println(
