@@ -1,16 +1,13 @@
 package pizzeria_ui;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import pizzeria.entity.*;
+import pizzeria.entity.Order;
+import pizzeria.entity.Pizzeria;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Configuration {
     @FXML
@@ -27,13 +24,7 @@ public class Configuration {
     private ChoiceBox<String> cookMode;
 
     @FXML
-    private TableView<String> table;
-//    @FXML
-//    private TableColumn<Order, String> customerColumn;
-    @FXML
-    private TableColumn<Order, String> orderColumn;
-//    @FXML
-//    private TableColumn<?> stateColumn;
+    private TableView<Order> table;
 
 
     @FXML
@@ -56,39 +47,35 @@ public class Configuration {
         tablesAmount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10));
         cashiersAmount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10));
         cooksAmount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10));
-        cookMode.getItems().addAll("Fullstack", "Team");
+        cookMode.getItems().addAll("Team", "Fullstack");
         cookMode.setValue("Fullstack");
+        Pizzeria pizzeria = Pizzeria.getInstance();
 
-        orderColumn = new TableColumn<>("Order");
+        TableColumn<Order, String> customerColumn = new TableColumn<>("Customer");
+        customerColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
 
-        List<Order> orders = getOrderList();
-        List<String> pizzaTitlesList = orders.stream()
-                .map(Order::getPizzas)
-                .flatMap(List::stream)
-                .map(Pizza::getPizzaSettings)
-                .map(PizzaSettings::getTitle)
-                .toList();
+        TableColumn<Order, String> pizzasColumn = new TableColumn<>("Order");
+        pizzasColumn.setCellValueFactory(new PropertyValueFactory<>("order"));
 
-        String pizzaTitles = String.join(", ", pizzaTitlesList);
-        table.getItems().addAll(pizzaTitlesList);
+        TableColumn<Order, String> stateColumn = new TableColumn<>("State");
+        stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
+
+        table.getColumns().addAll(customerColumn, pizzasColumn, stateColumn);
+
+
+        new Thread(() -> {
+            while (true) {
+                List<Order> orders = pizzeria.getQueue();
+                table.getItems().clear();
+                table.getItems().addAll(orders);
+
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
-    ObservableList<Order> getOrderList() {
-        ObservableList<Order> orders = FXCollections.observableArrayList();
-        orders.add(new Order(
-                List.of(
-                        new Pizza(new PizzaSettings("TestPizza 1", 30)),
-                        new Pizza(new PizzaSettings("TestPizza 2", 20))
-                )
-        ));
-                orders.add(new Order(
-                List.of(
-                        new Pizza(new PizzaSettings("TestPizza 3", 50)),
-                        new Pizza(new PizzaSettings("TestPizza 4", 40))
-                )
-        )
-
-        );
-        return orders;
-    }
 }

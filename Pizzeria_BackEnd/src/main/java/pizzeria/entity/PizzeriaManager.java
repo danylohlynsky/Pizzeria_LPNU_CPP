@@ -17,7 +17,7 @@ public class PizzeriaManager {
             pizzeria.getCustomers().add(customer);
         }
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
             generateClient();
         } catch (InterruptedException e) {
             e.printStackTrace();
