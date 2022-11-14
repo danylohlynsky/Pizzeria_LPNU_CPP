@@ -11,21 +11,20 @@ public class PizzeriaApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-      //  CooksApplication cooksApplication = new CooksApplication(4, 1);
-       // while(true){
-      //  cooksApplication.start(stage);
-       // new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while(true) {
-//                    cooksApplication.updateCooks();
-//                }
-//                }
-//            }
-//        }).start();
+        // CooksApplication cooksApplication = new CooksApplication(4, 1);
+        // while(true){
+        // cooksApplication.start(stage);
+        // new Thread(new Runnable() {
+        // @Override
+        // public void run() {
+        // while(true) {
+        // cooksApplication.updateCooks();
+        // }
+        // }
+        // }
+        // }).start();
 
-
-       // }
+        // }
 
         FXMLLoader fxmlLoader = new FXMLLoader(PizzeriaApplication.class.getResource("cooks-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 500);

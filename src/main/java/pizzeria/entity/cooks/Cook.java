@@ -9,7 +9,7 @@ import java.util.TimerTask;
 
 public abstract class Cook extends Thread {
     protected static Pizzeria pizzeria = Pizzeria.getInstance();
-    protected CookState state = CookState.AVAILABLE; //default state
+    protected CookState state = CookState.AVAILABLE; // default state
     protected Pizza pizza;
     // protected int time = pizzeria.getMinSecondsForPizza();
     protected Timer timer = new Timer();
@@ -45,7 +45,7 @@ public abstract class Cook extends Thread {
         };
     }
 
-    public CookState getCookState(){
+    public CookState getCookState() {
         return this.state;
     }
 

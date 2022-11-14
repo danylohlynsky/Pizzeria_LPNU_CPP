@@ -4,19 +4,18 @@ public enum CookState {
     AVAILABLE, BUSY, OUT
 }
 
-
-//public enum CookState {
-//    AVAILABLE('r'),
-//    BUSY("Busy"),
-//    Out("Out");
+// public enum CookState {
+// AVAILABLE('r'),
+// BUSY("Busy"),
+// Out("Out");
 //
-//    private final int value;
+// private final int value;
 //
-//    private Status(int value) {
-//        this.value = value
-//    }
+// private Status(int value) {
+// this.value = value
+// }
 //
-//    public int getValue() {
-//        return value;
-//    }
-//}
+// public int getValue() {
+// return value;
+// }
+// }
