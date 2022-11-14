@@ -24,7 +24,6 @@ public class TableController {
 
     List<Map<ImageView, Table>> imageViews = new ArrayList<>();
 
-
     @FXML
     public void initialize() {
         emptyTable = new Image("table_empty.jpg");
@@ -80,13 +79,14 @@ public class TableController {
             }
         }).start();
     }
+
     public void draw() {
         for (Map<ImageView, Table> viewsTables : imageViews) {
             for (var viewTable : viewsTables.entrySet()) {
                 switch (viewTable.getValue().getTableState()) {
-                    case EMPTY -> viewTable.getKey().setImage(emptyTable);
-                    case CUSTOMER_EATING -> viewTable.getKey().setImage(eatingTable);
-                    case CUSTOMER_WAITING -> viewTable.getKey().setImage(waitingTable);
+                case EMPTY -> viewTable.getKey().setImage(emptyTable);
+                case CUSTOMER_EATING -> viewTable.getKey().setImage(eatingTable);
+                case CUSTOMER_WAITING -> viewTable.getKey().setImage(waitingTable);
                 }
             }
         }
