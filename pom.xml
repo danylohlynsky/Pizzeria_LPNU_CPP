@@ -6,7 +6,9 @@
 
     <name>Pizzeria</name>
     <modules>
-        <module>Pizzeria_UI</module></modules>
+        <module>Pizzeria_UI</module>
+        <module>Pizzeria_BackEnd</module>
+    </modules>
     <packaging>pom</packaging>
 
     <groupId>org.example</groupId>
