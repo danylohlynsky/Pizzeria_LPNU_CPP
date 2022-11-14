@@ -27,7 +27,7 @@ public class PizzeriaApplication extends Application {
 
        // }
 
-        FXMLLoader fxmlLoader = new FXMLLoader(PizzeriaApplication.class.getResource("cooks_view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(PizzeriaApplication.class.getResource("cooks-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 500, 500);
         stage.setTitle("Pizzeria");
         stage.setScene(scene);

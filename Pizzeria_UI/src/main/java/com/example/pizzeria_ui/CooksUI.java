@@ -1,19 +1,15 @@
 package com.example.pizzeria_ui;
 
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import pizzeria.entity.Pizzeria;
 import pizzeria.entity.cooks.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +18,7 @@ enum AllCookStates {NONE, FULLSTACK_READY, FULLSTACK_BREAK, FULLSTACK_BUSY,
                     DOUGH_READY, DOUGH_BREAK, DOUGH_BUSY,
     TOPPING_READY,TOPPING_BREAK, TOPPING_BUSY,
      BAKER_READY, BAKER_BREAK, BAKER_BUSY}
-public class CooksApplication {
+public class CooksUI {
     private HashMap<AllCookStates, Image> images;
 
     private List<List<ImageView>> imageViews;
