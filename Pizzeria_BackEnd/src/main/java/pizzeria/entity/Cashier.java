@@ -18,6 +18,7 @@ public class Cashier extends Thread {
             // fixme: may be should be changed (add all pizzas to dough queue), but may be it's fine =)
             customer.getOrder().getPizzas().forEach(pizzeria.getDoughQueue()::addPizzaToQueue);
             customer.getOrder().setState(OrderState.PREPARING);
+            customer.getTable().setTableState(TableState.CUSTOMER_WAITING);
             System.out.println(pizzeria.getQueue().size() + " orders in the queue");
         }
         customers.remove(customer);
