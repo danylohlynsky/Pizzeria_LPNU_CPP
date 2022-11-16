@@ -37,7 +37,7 @@ public class OrderListController {
     }
 
     public void update() {
-        List<Order> orders = Pizzeria.getInstance().getQueue();
+        List<Order> orders = Pizzeria.getInstance().getOrders();
         table.getItems().clear();
         table.getItems().addAll(orders);
 
