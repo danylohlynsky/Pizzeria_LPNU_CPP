@@ -23,10 +23,10 @@ public class QueueController {
     }
 
     private void init() {
-        clientImage = new Image("client.png");
-        emptyClientImage = new Image("empty_client.png");
-        cashierImage = new Image("cashier.png");
-        emptyCashierImage = new Image("empty_cashier.png");
+        clientImage = new Image("client.jpg");
+        emptyClientImage = new Image("empty_client.jpg");
+        cashierImage = new Image("cashier.jpg");
+        emptyCashierImage = new Image("empty_cashier.jpg");
 
         int sizeWidth = (int) queueGrid.getPrefWidth();
         int sizeHeight = (int) queueGrid.getPrefHeight();
