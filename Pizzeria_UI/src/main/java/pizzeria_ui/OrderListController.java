@@ -10,9 +10,7 @@ import java.util.List;
 
 /**
  * @author Oleh Hembarovskyi
- *
  * @link oleh.hembarovskyi@embrox.com
- *
  * @since 14/11/2022
  **/
 public class OrderListController {
@@ -25,12 +23,15 @@ public class OrderListController {
 
     private void init() {
         TableColumn<Order, String> customerColumn = new TableColumn<>("Customer");
+        customerColumn.setPrefWidth(100);
         customerColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
 
         TableColumn<Order, String> pizzasColumn = new TableColumn<>("Order");
+        pizzasColumn.setPrefWidth(300);
         pizzasColumn.setCellValueFactory(new PropertyValueFactory<>("order"));
 
         TableColumn<Order, String> stateColumn = new TableColumn<>("State");
+        stateColumn.setPrefWidth(100);
         stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
 
         table.getColumns().addAll(customerColumn, pizzasColumn, stateColumn);
