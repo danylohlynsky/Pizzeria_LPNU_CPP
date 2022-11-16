@@ -25,19 +25,22 @@ public class OrderListController {
 
     private void init() {
         TableColumn<Order, String> customerColumn = new TableColumn<>("Customer");
+        customerColumn.setPrefWidth(100);
         customerColumn.setCellValueFactory(new PropertyValueFactory<>("customer"));
 
         TableColumn<Order, String> pizzasColumn = new TableColumn<>("Order");
+        pizzasColumn.setPrefWidth(300);
         pizzasColumn.setCellValueFactory(new PropertyValueFactory<>("order"));
 
         TableColumn<Order, String> stateColumn = new TableColumn<>("State");
+        stateColumn.setPrefWidth(100);
         stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
 
         table.getColumns().addAll(customerColumn, pizzasColumn, stateColumn);
     }
 
     public void update() {
-        List<Order> orders = Pizzeria.getInstance().getQueue();
+        List<Order> orders = Pizzeria.getInstance().getOrders();
         table.getItems().clear();
         table.getItems().addAll(orders);
 

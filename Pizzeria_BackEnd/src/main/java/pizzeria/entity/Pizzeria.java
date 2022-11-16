@@ -6,7 +6,9 @@ import pizzeria.entity.cooks.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -125,5 +127,9 @@ public class Pizzeria {
         }
 
         return instance;
+    }
+
+    public List<Order> getOrders() {
+        return customers.stream().map(Customer::getOrder).filter(Objects::nonNull).collect(Collectors.toList());
     }
 }
