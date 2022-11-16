@@ -52,7 +52,7 @@ public class Pizzeria {
     }
 
     public void start(int minSecondsForPizza, int differentPizzaAmount, int tablesAmount, int cashiersAmount,
-                      int cookMode, int cooksAmount) {
+            int cookMode, int cooksAmount) {
         PizzeriaManager pizzeriaManager = new PizzeriaManager();
 
         this.setMinSecondsForPizza(minSecondsForPizza);
@@ -130,10 +130,6 @@ public class Pizzeria {
     }
 
     public List<Order> getOrders() {
-        return customers
-                .stream()
-                .map(Customer::getOrder)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+        return customers.stream().map(Customer::getOrder).filter(Objects::nonNull).collect(Collectors.toList());
     }
 }
